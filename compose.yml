@@ -1,20 +1,11 @@
 version: "3.9"
 
 services:
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app-network
-
   web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # command: ./watchmedo.sh
     volumes:
       - .:/code
     ports:
@@ -22,18 +13,11 @@ services:
     environment:
       DEBUG: "1"
       DJANGO_ALLOWED_HOSTS: "localhost"
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_HOST: db
-      POSTGRES_PORT: 5432
-    networks:
-      - app-network
-    depends_on:
-      - db
-
-networks:
-  app-network:
+      POSTGRES_DB: neonpg_db_name # Replace with your actual DB name
+      POSTGRES_USER: neonpg_user # Replace with your actual DB user
+      POSTGRES_PASSWORD: neonpg_password # Replace with your actual DB password
+      POSTGRES_HOST: neonpg_host # Replace with your actual DB host
+      POSTGRES_PORT: neonpg_port # Replace with your actual DB port
 
 volumes:
   postgres_data:
