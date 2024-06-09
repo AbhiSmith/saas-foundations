@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+<!-- <h1></h1> -->
+
+{% block title %} Home | {{ block.super}} {% endblock %} {% block content %}
+<h1>This is the Home Page</h1>
+
+{% include 'snippets/welcom-user.html' %} page_visit_Count: {{page_visit_Count}}
+{% endblock %}
